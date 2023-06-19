@@ -1,0 +1,33 @@
+<table>
+    <tr>
+      <th>Product Name</th>
+      <th>Variant</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Rate</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let row of rows; let i = index;">
+      <td>
+        <select [(ngModel)]="row.product" (ngModelChange)="updateRate(row)">
+          <option value="">Select Product</option>
+          <option *ngFor="let product of JSONData.products" [value]="product.name">{{ product.name }}</option>
+        </select>
+      </td>
+      <td>
+        <select [(ngModel)]="row.variant" (ngModelChange)="updateRate(row)">
+          <option value="">Select Variant</option>
+        <option *ngFor="let variant of getVariants(row.product)" [value]="variant.name" [ngValue]="variant.name">{{ variant.name }}</option>
+
+        </select>
+      </td>
+      <td><input type="number" [(ngModel)]="row.from" (ngModelChange)="updateRate(row)" /></td>
+      <td><input type="number" [(ngModel)]="row.to" (ngModelChange)="updateRate(row)" /></td>
+      <td>{{ row.rate }}</td>
+      <td>
+        <button (click)="removeRow(i)">Remove</button>
+      </td>
+    </tr>
+  </table>
+  <button class="add-button" (click)="addRow()">+</button>
+  
